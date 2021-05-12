@@ -16,7 +16,7 @@ const removeUser = async (id) => {
   const user = await getUserById(id);
   const index = users.indexOf(user);
   users.splice(index - 1, 1);
-  return user
+  return user;
 }
 
 module.exports = { getAll, postUser, getUserById, updateUser, removeUser };
