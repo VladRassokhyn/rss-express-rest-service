@@ -1,4 +1,4 @@
-const tasks = [];
+let tasks = [];
 
 const getAll = async () => tasks;
 const postTask = async (task) => {
@@ -18,5 +18,13 @@ const removeTask = async (id) => {
   tasks.splice(index, 1);
   return task;
 }
+const removeTasksFromBoard = async (boardId) => {
+  tasks = tasks.filter(t => t.boardId !== boardId)
+}
+const removeTasksFromUser = async (userId) => {
+  tasks = tasks.map(t =>  t.userId === userId
+      ? {...t, userId: null}
+      : t
+)}
 
-module.exports = { getAll, postTask, getTaskById, updateTask, removeTask };
+module.exports = { getAll, postTask, getTaskById, updateTask, removeTask, removeTasksFromBoard, removeTasksFromUser };

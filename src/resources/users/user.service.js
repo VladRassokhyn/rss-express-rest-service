@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const usersRepo = require('./user.memory.repository');
 const User = require('./user.model');
+const taskService = require("../tasks/task.service");
 
 const getAll = () => usersRepo.getAll();
 const postUser = ({name,login,password}) => {
@@ -9,6 +10,9 @@ const postUser = ({name,login,password}) => {
 }
 const getUserById = (id) => usersRepo.getUserById(id)
 const updateUser = (id, userData) => usersRepo.updateUser(id, userData)
-const removeUser = (id) => usersRepo.removeUser(id)
+const removeUser = async (id) => {
+  await taskService.removeTasksFromUser(id);
+  return usersRepo.removeUser(id);
+}
 
 module.exports = { getAll, postUser, getUserById, updateUser, removeUser };

@@ -7,5 +7,7 @@ const postTask = (taskData, boardId) => taskRepo.postTask(new Task({...taskData,
 const getTaskById = (taskId) => taskRepo.getTaskById(taskId);
 const updateTask = (taskData, taskId) => taskRepo.updateTask(taskId, taskData);
 const removeTask = (taskId) => taskRepo.removeTask(taskId);
+const removeTasksFromBoard = (boardId) => taskRepo.removeTasksFromBoard(boardId);
+const removeTasksFromUser = (userId) => taskRepo.removeTasksFromUser(userId);
 
-module.exports = { getAll, postTask, getTaskById, updateTask, removeTask };
+module.exports = { getAll, postTask, getTaskById, updateTask, removeTask, removeTasksFromBoard, removeTasksFromUser };
