@@ -1,15 +1,18 @@
+const { v4: uuidv4 } = require('uuid');
+const Board = require('./board.model');
+
 const boards = [];
 
 const getAll = async () => boards;
 const postBoard = async (boardData) => {
-  boards.push(boardData);
-  return boardData;
+  boards.push(new Board({...boardData, id: uuidv4()}));
+  return boards[boards.length - 1];
 }
 const getBoardById = async (id) => boards.find(board => board.id === id);
-const updateBoard = async (id, {title, columns}) => {
+const updateBoard = async (id, boardData) => {
   const board = await getBoardById(id);
   const index = boards.indexOf(board);
-  boards[index] = {...board, title, columns};
+  boards[index] = {...board, ...boardData};
   return boards[index];
 }
 const removeBoard = async (id) => {
