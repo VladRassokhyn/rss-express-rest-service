@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> task.memory.repository.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Task.html">Task</a></li></ul><h3>Global</h3><ul><li><a href="global.html#tasks">tasks</a></li></ul></div><div class="category"><h2>TaskRepository</h2><h3>Global</h3><ul><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getTaskById">getTaskById</a></li><li><a href="global.html#postTask">postTask</a></li><li><a href="global.html#removeTask">removeTask</a></li><li><a href="global.html#removeTasksFromBoard">removeTasksFromBoard</a></li><li><a href="global.html#removeTasksFromUser">removeTasksFromUser</a></li><li><a href="global.html#updateTask">updateTask</a></li></ul></div><div class="category"><h2>TaskService</h2><h3>Global</h3><ul><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getTaskById">getTaskById</a></li><li><a href="global.html#postTask">postTask</a></li><li><a href="global.html#removeTask">removeTask</a></li><li><a href="global.html#removeTasksFromBoard">removeTasksFromBoard</a></li><li><a href="global.html#removeTasksFromUser">removeTasksFromUser</a></li><li><a href="global.html#updateTask">updateTask</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>task.memory.repository.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { v4: uuidv4 } = require('uuid');
+const Task = require('./task.model');
+
+
+/**
+ * The tasks database
+ *
+ * @type {TTask[]}
+ */
+let tasks = [];
+
+/**
+ * Get all tasks from database
+ *
+ * @category TaskRepository
+ * @return {Promise&lt;TTask[]>}
+ */
+const getAll = async () => tasks;
+
+/**
+ * Add new task to database
+ *
+ * @category TaskRepository
+ * @param taskData {Object&lt;TTask>} - Serviced Data of new task from request
+ * @param boardId {string} - id of associated board
+ * @return {Promise&lt;Object&lt;TTask>>}
+ */
+const postTask = async (taskData, boardId) => {
+  tasks.push(new Task({ ...taskData, id: uuidv4(), boardId }));
+  return tasks[tasks.length - 1];
+};
+
+/**
+ * Get task by id from database
+ *
+ * @category TaskRepository
+ * @param id {string} - looking task id
+ * @return {Promise&lt;Object&lt;TTask>>}
+ */
+const getTaskById = async (id) => tasks.find(task => task.id === id);
+
+/**
+ * Update data of selected task in database
+ *
+ * @category TaskRepository
+ * @param id {string} - selected task id
+ * @param taskData {TTask} - data to update
+ * @return {Promise&lt;Object&lt;TTask>>}
+ */
+const updateTask = async (id, taskData) => {
+  const task = await getTaskById(id);
+  const index = tasks.indexOf(task);
+  tasks[index] = { ...task, ...taskData };
+  return tasks[index];
+};
+
+/**
+ * Remove task from database
+ *
+ * @category TaskRepository
+ * @param id {string} - selected task id
+ * @return {Promise&lt;Object&lt;TTask>>}
+ */
+const removeTask = async (id) => {
+  const task = await getTaskById(id);
+  const index = tasks.indexOf(task);
+  tasks.splice(index, 1);
+  return task;
+};
+
+/**
+ * Remove tasks from associated board
+ *
+ * @category TaskRepository
+ * @param boardId {string} - associated board id
+ * @return {Promise&lt;void>}
+ */
+const removeTasksFromBoard = async (boardId) => {
+  tasks = tasks.filter(t => t.boardId !== boardId);
+};
+
+/**
+ * Remove task which associated with user
+ *
+ * @category TaskRepository
+ * @param userId {string} - id of user
+ * @return {Promise&lt;void>}
+ */
+const removeTasksFromUser = async (userId) => {
+  tasks = tasks.map(t =>
+    t.userId === userId
+      ? { ...t, userId: null }
+      : t
+  );
+};
+
+module.exports = { getAll, postTask, getTaskById, updateTask, removeTask, removeTasksFromBoard, removeTasksFromUser };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
