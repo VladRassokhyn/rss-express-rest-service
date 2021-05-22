@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> tasks/task.model.js</title>
+  <title> users/user.service.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>tasks/task.model.js</h1>
+                    <h1>users/user.service.js</h1>
                 </header>
                 
 
@@ -85,52 +85,54 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const uuid = require('uuid');
+            <pre class="prettyprint source linenums"><code>const usersRepo = require('./user.memory.repository');
+const taskService = require("../tasks/task.service");
 
 /**
- * @typedef {Object.&lt;{
- *   id: string,
- *   title: string,
- *   order: number,
- *   description: string,
- *   userId: string | null,
- *   boardId: string | null,
- *   columnId: string | null
- * }>} TTask
+ * Get all users from repository
+ *
+ * @category userService
+ * @return {Promise&lt;TUser[]>}
  */
+const getAll = () => usersRepo.getAll();
 
-class Task {
-  /**
-   * Task constructor
-   *
-   * @param id {string} - id of task
-   * @param title {string} - short title
-   * @param order {number} - order number (1-3)
-   * @param description {string} - task description
-   * @param userId {string | null} - id of associated user
-   * @param boardId {string | null} - id of associated board
-   * @param columnId {string | null} - id of associated column
-   */
-  constructor({
-    id = uuid(),
-    title = 'title',
-    order = 0,
-    description = 'description',
-    userId = '1',
-    boardId = '1',
-    columnId = '1'
-  } = {}) {
-    this.id = id;
-    this.title = title;
-    this.order = order
-    this.description = description;
-    this.userId = userId;
-    this.boardId = boardId;
-    this.columnId = columnId;
-  }
+/**
+ * Send new user data to repository for adding
+ * @category userService
+ * @param userData {TUser} - data of new user
+ * @return {Promise&lt;Object&lt;{TUser}>>}
+ */
+const postUser = (userData) => usersRepo.postUser(userData);
+
+/**
+ * Send user id to repository for searching
+ * @category userService
+ * @param id {string} - id of searching user
+ * @return {Promise&lt;Object&lt;{TUser}>>}
+ */
+const getUserById = (id) => usersRepo.getUserById(id)
+
+/**
+ * Send data for update user to memory repository
+ * @category userService
+ * @param id {string} - id of updating user
+ * @param userData {TUser} - new data to update
+ * @return {Promise&lt;Object&lt;{TUser}>>}
+ */
+const updateUser = (id, userData) => usersRepo.updateUser(id, userData)
+
+/**
+ * Send to repository user id for remove
+ * @param id {string}
+ * @return {Promise&lt;Object&lt;{TUser}>>}
+ */
+const removeUser = async (id) => {
+  await taskService.removeTasksFromUser(id);
+  return usersRepo.removeUser(id);
 }
 
-module.exports = Task;</code></pre>
+module.exports = { getAll, postUser, getUserById, updateUser, removeUser };
+</code></pre>
         </article>
     </section>
 
