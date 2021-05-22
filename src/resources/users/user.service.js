@@ -36,6 +36,7 @@ const updateUser = (id, userData) => usersRepo.updateUser(id, userData)
 
 /**
  * Send to repository user id for remove
+ * @category userService
  * @param id {string}
  * @return {Promise<Object<{TUser}>>}
  */

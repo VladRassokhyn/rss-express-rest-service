@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 
 /**
- * @typedef {Object.<{
+ * @typedef {Object<{
  *   id: string,
  *   title: string,
  *   order: number,
