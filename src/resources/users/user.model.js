@@ -7,7 +7,7 @@ const uuid = require('uuid');
  *   name: string,
  *   login: string,
  *   password: string,
- *   toResponse: toResponse
+ *   toResponse: Function
  * }>} TUser
  */
 
@@ -30,11 +30,6 @@ class User {
     this.password = password;
   }
 
-  /**
-   * @function toResponse
-   * @param {TUser} user - user to transform
-   * @return {Object<{name: string,id: string,login: string}>}
-   */
   static toResponse(user) {
     const { id, name, login } = user;
     return { id, name, login };

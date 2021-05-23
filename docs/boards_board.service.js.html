@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: users/user.service.js</title>
+    <title>JSDoc: Source: boards/board.service.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: users/user.service.js</h1>
+    <h1 class="page-title">Source: boards/board.service.js</h1>
 
     
 
@@ -26,67 +26,68 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const usersRepo = require('./user.memory.repository');
+            <pre class="prettyprint source linenums"><code>const boardRepo = require('./board.memory.repository');
 const taskService = require("../tasks/task.service");
 
 /**
- * @namespace UsersService
+ * @namespace BoardsService
  */
 
 /**
- * Get all users from repository
+ * Get all boards from repository
  *
- * @memberof UsersService
- * @category userService
- * @return {Promise&lt;TUser[]>}
+ * @memberOf BoardsService
+ * @category boardService
+ * @return {Promise&lt;Array&lt;{TBoard}>>}
  */
-const getAll = () => usersRepo.getAll();
+const getAll = () => boardRepo.getAll();
 
 /**
- * Send new user data to repository for adding
+ * Send new board data to repository for adding to db
  *
- * @category userService
- * @memberof UsersService
- * @param userData {TUser} - data of new user
- * @return {Promise&lt;Object&lt;{TUser}>>}
+ * @memberOf BoardsService
+ * @category boardService
+ * @param boardData {TBoard} - new board data
+ * @return {Promise&lt;{TBoard}| null>}
  */
-const postUser = (userData) => usersRepo.postUser(userData);
+const postBoard = (boardData) => boardRepo.postBoard(boardData);
 
 /**
- * Send user id to repository for searching
+ * Send to repository id for search board
  *
- * @category userService
- * @memberof UsersService
- * @param id {string} - id of searching user
- * @return {Promise&lt;Object&lt;{TUser}>>}
+ * @memberOf BoardsService
+ * @category boardService
+ * @param id {string} - id of searching board
+ * @return {Promise&lt;{TBoard} | null>}
  */
-const getUserById = (id) => usersRepo.getUserById(id)
+const getBoardById = (id) => boardRepo.getBoardById(id);
 
 /**
- * Send data for update user to memory repository
+ * Send to repository new data for update board by id
  *
- * @category userService
- * @memberof UsersService
- * @param id {string} - id of updating user
- * @param userData {TUser} - new data to update
- * @return {Promise&lt;Object&lt;{TUser}>>}
+ * @memberOf BoardsService
+ * @category boardService
+ * @param id {string} - updating board id
+ * @param boadrdData {TBoard} - data to update
+ * @return {Promise&lt;{TBoard} | null>}
  */
-const updateUser = (id, userData) => usersRepo.updateUser(id, userData)
+const updateBoard = (id, boadrdData) => boardRepo.updateBoard(id, boadrdData);
 
 /**
- * Send id to tasksService to delete association with user. After that send to repository user id for remove
+ * Send to taskService board id for delete tasks from this board. After that send id to repository for deleting the
+ * board
  *
- * @category userService
- * @memberof UsersService
- * @param id {string}
- * @return {Promise&lt;Object&lt;{TUser}>>}
+ * @memberOf BoardsService
+ * @category boardService
+ * @param id {string} - board id
+ * @return {Promise&lt;{TBoard}>}
  */
-const removeUser = async (id) => {
-  await taskService.removeTasksFromUser(id);
-  return usersRepo.removeUser(id);
+const removeBoard = async (id) => {
+  await taskService.removeTasksFromBoard(id)
+  return boardRepo.removeBoard(id)
 }
 
-module.exports = { getAll, postUser, getUserById, updateUser, removeUser };
+module.exports = { getAll, postBoard, getBoardById, updateBoard, removeBoard };
 </code></pre>
         </article>
     </section>

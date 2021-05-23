@@ -1,12 +1,9 @@
 {
-  "plugins": [
-    "node_modules/better-docs/category"
-  ],
+  "plugins": [],
   "recurseDepth": 10,
   "opts": {
     "recurse": true,
-    "destination": "./docs/",
-    "template": "node_modules/better-docs"
+    "destination": "./docs/"
   },
   "source": {
     "include": [

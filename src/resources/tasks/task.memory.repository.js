@@ -1,6 +1,9 @@
 const { v4: uuidv4 } = require('uuid');
 const Task = require('./task.model');
 
+/**
+ * @namespace TasksRepository
+ */
 
 /**
  * The tasks database
@@ -12,7 +15,8 @@ let tasks = [];
 /**
  * Get all tasks from database
  *
- * @category TaskRepository
+ * @memberof TasksRepository
+ * @category TasksRepository
  * @return {Promise<TTask[]>}
  */
 const getAll = async () => tasks;
@@ -20,7 +24,8 @@ const getAll = async () => tasks;
 /**
  * Add new task to database
  *
- * @category TaskRepository
+ * @memberof TasksRepository
+ * @category TasksRepository
  * @param taskData {Object<TTask>} - Serviced Data of new task from request
  * @param boardId {string} - id of associated board
  * @return {Promise<Object<TTask>>}
@@ -33,7 +38,8 @@ const postTask = async (taskData, boardId) => {
 /**
  * Get task by id from database
  *
- * @category TaskRepository
+ * @memberof TasksRepository
+ * @category TasksRepository
  * @param id {string} - looking task id
  * @return {Promise<Object<TTask>>}
  */
@@ -42,7 +48,8 @@ const getTaskById = async (id) => tasks.find(task => task.id === id);
 /**
  * Update data of selected task in database
  *
- * @category TaskRepository
+ * @memberof TasksRepository
+ * @category TasksRepository
  * @param id {string} - selected task id
  * @param taskData {TTask} - data to update
  * @return {Promise<Object<TTask>>}
@@ -57,7 +64,8 @@ const updateTask = async (id, taskData) => {
 /**
  * Remove task from database
  *
- * @category TaskRepository
+ * @memberof TasksRepository
+ * @category TasksRepository
  * @param id {string} - selected task id
  * @return {Promise<Object<TTask>>}
  */
@@ -71,7 +79,8 @@ const removeTask = async (id) => {
 /**
  * Remove tasks from associated board
  *
- * @category TaskRepository
+ * @memberof TasksRepository
+ * @category TasksRepository
  * @param boardId {string} - associated board id
  * @return {Promise<void>}
  */
@@ -82,7 +91,8 @@ const removeTasksFromBoard = async (boardId) => {
 /**
  * Remove task which associated with user
  *
- * @category TaskRepository
+ * @memberof TasksRepository
+ * @category TasksRepository
  * @param userId {string} - id of user
  * @return {Promise<void>}
  */
