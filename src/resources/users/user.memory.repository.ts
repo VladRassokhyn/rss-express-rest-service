@@ -1,3 +1,5 @@
+import { TUser } from '../../types';
+
 const { v4: uuidv4 } = require('uuid');
 const User = require('./user.model');
 
@@ -10,7 +12,7 @@ const User = require('./user.model');
  *
  * @type {TUser[]}
  */
-const users = [];
+const users: Array<TUser> = [];
 
 /**
  * Get all users from database
@@ -29,8 +31,8 @@ const getAll = async () => users;
  * @param userData {TUser} - serviced user data from request
  * @return {Promise<Object<{TUser}>> | null}
  */
-const postUser = async (userData) => {
-  users.push(new User({...userData, id: uuidv4()}));
+const postUser = async (userData: TUser) => {
+  users.push(new User({ ...userData, id: uuidv4() }));
   return users[users.length - 1];
 };
 
@@ -42,7 +44,7 @@ const postUser = async (userData) => {
  * @param id {string} - id for find user
  * @return {Promise<Object<{TUser}>> | null}
  */
-const getUserById = async (id) => users.find(user => user.id === id);
+const getUserById = async (id: string) => users.find((user) => user.id === id);
 
 /**
  * Update user info
@@ -53,11 +55,14 @@ const getUserById = async (id) => users.find(user => user.id === id);
  * @param userData {TUser} - data to update
  * @return {Promise<Object<{TUser}>> | null}
  */
-const updateUser = async (id, userData) => {
+const updateUser = async (id: string, userData: TUser) => {
   const user = await getUserById(id);
-  const index = users.indexOf(user);
-  users[index] = {...user, ...userData};
-  return users[index];
+  if (user) {
+    const index = users.indexOf(user);
+    users[index] = { ...user, ...userData };
+    return users[index];
+  }
+  return null;
 };
 
 /**
@@ -68,11 +73,14 @@ const updateUser = async (id, userData) => {
  * @param id {string} - id of deleting user
  * @return {Promise<Object<{TUser}>> | null}
  */
-const removeUser = async (id) => {
+const removeUser = async (id: string) => {
   const user = await getUserById(id);
-  const index = users.indexOf(user);
-  users.splice(index, 1);
-  return user;
-}
+  if (user) {
+    const index = users.indexOf(user);
+    users.splice(index, 1);
+    return user;
+  }
+  return null;
+};
 
 module.exports = { getAll, postUser, getUserById, updateUser, removeUser };

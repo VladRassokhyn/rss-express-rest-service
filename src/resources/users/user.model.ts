@@ -1,5 +1,6 @@
-const uuid = require('uuid');
+import { TUser } from '../../types';
 
+const uuid = require('uuid');
 
 /**
  * @typedef {Object.<{
@@ -12,6 +13,14 @@ const uuid = require('uuid');
  */
 
 class User {
+  id: string;
+
+  name: string;
+
+  login: string;
+
+  password: string;
+
   /**
    * @param id {string} - user id
    * @param name {string} - user name
@@ -22,7 +31,7 @@ class User {
     id = uuid(),
     name = 'USER',
     login = 'user',
-    password = 'P@55w0rd'
+    password = 'P@55w0rd',
   } = {}) {
     this.id = id;
     this.name = name;
@@ -30,7 +39,7 @@ class User {
     this.password = password;
   }
 
-  static toResponse(user) {
+  static toResponse(user: TUser) {
     const { id, name, login } = user;
     return { id, name, login };
   }

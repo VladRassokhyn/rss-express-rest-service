@@ -13,6 +13,20 @@ const uuid = require('uuid');
  */
 
 class Task {
+  id: string;
+
+  title: string;
+
+  order: number;
+
+  description: string;
+
+  userId: string | null;
+
+  boardId: string;
+
+  columnId: string;
+
   /**
    * Task constructor
    *
@@ -31,11 +45,11 @@ class Task {
     description = 'description',
     userId = '1',
     boardId = '1',
-    columnId = '1'
+    columnId = '1',
   } = {}) {
     this.id = id;
     this.title = title;
-    this.order = order
+    this.order = order;
     this.description = description;
     this.userId = userId;
     this.boardId = boardId;

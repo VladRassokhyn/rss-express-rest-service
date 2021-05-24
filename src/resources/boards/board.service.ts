@@ -1,5 +1,7 @@
+import { TBoard } from '../../types';
+
 const boardRepo = require('./board.memory.repository');
-const taskService = require("../tasks/task.service");
+const taskService = require('../tasks/task.service');
 
 /**
  * @namespace BoardsService
@@ -22,7 +24,7 @@ const getAll = () => boardRepo.getAll();
  * @param boardData {TBoard} - new board data
  * @return {Promise<{TBoard}| null>}
  */
-const postBoard = (boardData) => boardRepo.postBoard(boardData);
+const postBoard = (boardData: TBoard) => boardRepo.postBoard(boardData);
 
 /**
  * Send to repository id for search board
@@ -32,7 +34,7 @@ const postBoard = (boardData) => boardRepo.postBoard(boardData);
  * @param id {string} - id of searching board
  * @return {Promise<{TBoard} | null>}
  */
-const getBoardById = (id) => boardRepo.getBoardById(id);
+const getBoardById = (id: string) => boardRepo.getBoardById(id);
 
 /**
  * Send to repository new data for update board by id
@@ -43,7 +45,8 @@ const getBoardById = (id) => boardRepo.getBoardById(id);
  * @param boadrdData {TBoard} - data to update
  * @return {Promise<{TBoard} | null>}
  */
-const updateBoard = (id, boadrdData) => boardRepo.updateBoard(id, boadrdData);
+const updateBoard = (id: string, boadrdData: TBoard) =>
+  boardRepo.updateBoard(id, boadrdData);
 
 /**
  * Send to taskService board id for delete tasks from this board. After that send id to repository for deleting the
@@ -54,9 +57,9 @@ const updateBoard = (id, boadrdData) => boardRepo.updateBoard(id, boadrdData);
  * @param id {string} - board id
  * @return {Promise<{TBoard}>}
  */
-const removeBoard = async (id) => {
-  await taskService.removeTasksFromBoard(id)
-  return boardRepo.removeBoard(id)
-}
+const removeBoard = async (id: string) => {
+  await taskService.removeTasksFromBoard(id);
+  return boardRepo.removeBoard(id);
+};
 
 module.exports = { getAll, postBoard, getBoardById, updateBoard, removeBoard };

@@ -1,3 +1,5 @@
+import { TTask } from '../../types';
+
 const { v4: uuidv4 } = require('uuid');
 const Task = require('./task.model');
 
@@ -10,7 +12,7 @@ const Task = require('./task.model');
  *
  * @type {TTask[]}
  */
-let tasks = [];
+let tasks: Array<TTask> = [];
 
 /**
  * Get all tasks from database
@@ -30,7 +32,7 @@ const getAll = async () => tasks;
  * @param boardId {string} - id of associated board
  * @return {Promise<Object<TTask>>}
  */
-const postTask = async (taskData, boardId) => {
+const postTask = async (taskData: TTask, boardId: string) => {
   tasks.push(new Task({ ...taskData, id: uuidv4(), boardId }));
   return tasks[tasks.length - 1];
 };
@@ -43,7 +45,7 @@ const postTask = async (taskData, boardId) => {
  * @param id {string} - looking task id
  * @return {Promise<Object<TTask>>}
  */
-const getTaskById = async (id) => tasks.find(task => task.id === id);
+const getTaskById = async (id: string) => tasks.find((task) => task.id === id);
 
 /**
  * Update data of selected task in database
@@ -54,11 +56,14 @@ const getTaskById = async (id) => tasks.find(task => task.id === id);
  * @param taskData {TTask} - data to update
  * @return {Promise<Object<TTask>>}
  */
-const updateTask = async (id, taskData) => {
+const updateTask = async (id: string, taskData: TTask) => {
   const task = await getTaskById(id);
-  const index = tasks.indexOf(task);
-  tasks[index] = { ...task, ...taskData };
-  return tasks[index];
+  if (task) {
+    const index = tasks.indexOf(task);
+    tasks[index] = { ...task, ...taskData };
+    return tasks[index];
+  }
+  return null;
 };
 
 /**
@@ -69,11 +74,14 @@ const updateTask = async (id, taskData) => {
  * @param id {string} - selected task id
  * @return {Promise<Object<TTask>>}
  */
-const removeTask = async (id) => {
+const removeTask = async (id: string) => {
   const task = await getTaskById(id);
-  const index = tasks.indexOf(task);
-  tasks.splice(index, 1);
-  return task;
+  if (task) {
+    const index = tasks.indexOf(task);
+    tasks.splice(index, 1);
+    return task;
+  }
+  return null;
 };
 
 /**
@@ -84,8 +92,8 @@ const removeTask = async (id) => {
  * @param boardId {string} - associated board id
  * @return {Promise<void>}
  */
-const removeTasksFromBoard = async (boardId) => {
-  tasks = tasks.filter(t => t.boardId !== boardId);
+const removeTasksFromBoard = async (boardId: string) => {
+  tasks = tasks.filter((t) => t.boardId !== boardId);
 };
 
 /**
@@ -96,12 +104,16 @@ const removeTasksFromBoard = async (boardId) => {
  * @param userId {string} - id of user
  * @return {Promise<void>}
  */
-const removeTasksFromUser = async (userId) => {
-  tasks = tasks.map(t =>
-    t.userId === userId
-      ? { ...t, userId: null }
-      : t
-  );
+const removeTasksFromUser = async (userId: string) => {
+  tasks = tasks.map((t) => (t.userId === userId ? { ...t, userId: null } : t));
 };
 
-module.exports = { getAll, postTask, getTaskById, updateTask, removeTask, removeTasksFromBoard, removeTasksFromUser };
+module.exports = {
+  getAll,
+  postTask,
+  getTaskById,
+  updateTask,
+  removeTask,
+  removeTasksFromBoard,
+  removeTasksFromUser,
+};
