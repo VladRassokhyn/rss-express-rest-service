@@ -1,7 +1,7 @@
 import { TBoard } from '../../types';
 
-const boardRepo = require('./board.memory.repository');
-const taskService = require('../tasks/task.service');
+const boardRepo = require('./board.memory.repository.ts');
+const taskService = require('../tasks/task.service.ts');
 
 /**
  * @namespace BoardsService

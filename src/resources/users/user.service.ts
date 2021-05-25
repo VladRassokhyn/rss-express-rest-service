@@ -1,7 +1,7 @@
 import { TUser } from '../../types';
 
-const usersRepo = require('./user.memory.repository');
-const taskService = require('../tasks/task.service');
+const usersRepo = require('./user.memory.repository.ts');
+const taskService = require('../tasks/task.service.ts');
 
 /**
  * @namespace UsersService

@@ -1,7 +1,7 @@
 import { TUser } from '../../types';
 
 const { v4: uuidv4 } = require('uuid');
-const User = require('./user.model');
+const User = require('./user.model.ts');
 
 /**
  * @namespace UsersRepository

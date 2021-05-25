@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 
 const router = require('express').Router();
-const User = require('./user.model');
-const usersService = require('./user.service');
+const User = require('./user.model.ts');
+const usersService = require('./user.service.ts');
 
 router.route('/').get(async (req: Request, res: Response) => {
   const users = await usersService.getAll();
+  if (req)
   res.json(users.map(User.toResponse));
-  console.log(req.headers);
 });
 
 router.route('/').post(async (req: Request, res: Response) => {
@@ -17,7 +17,7 @@ router.route('/').post(async (req: Request, res: Response) => {
 });
 
 router.route('/:userId').get(async (req: Request, res: Response) => {
-  const user = await usersService.getUserById(req.params.userId);
+  const user = await usersService.getUserById(req.params['userId']);
   if (user) {
     res.json(User.toResponse(user));
   } else {
@@ -27,12 +27,12 @@ router.route('/:userId').get(async (req: Request, res: Response) => {
 });
 
 router.route('/:userId').put(async (req: Request, res: Response) => {
-  const user = await usersService.updateUser(req.params.userId, req.body);
+  const user = await usersService.updateUser(req.params['userId'], req.body);
   res.json(User.toResponse(user));
 });
 
-router.route('/:userId').delete(async (req: Request, res: Response) => {
-  const user = await usersService.removeUser(req.params.userId);
+router.route('/:userId')["delete"](async (req: Request, res: Response) => {
+  const user = await usersService.removeUser(req.params['userId']);
   res.json(User.toResponse(user));
 });
 

@@ -1,7 +1,7 @@
 import { TBoard } from '../../types';
 
 const { v4: uuidv4 } = require('uuid');
-const Board = require('./board.model');
+const Board = require('./board.model.ts');
 
 /**
  * @namespace BoardsRepository

@@ -19,19 +19,25 @@
     }
   },
   "settings": {
-    "noInlineConfig": true
+    "noInlineConfig": true,
+    "allowKeywords ": false
   },
   "extends": [
     "eslint:recommended",
     "plugin:node/recommended",
     "airbnb-base",
-    "prettier"
+    "prettier",
+    "plugin:import/typescript"
   ],
   "rules": {
     "import/extensions": "off",
     "linebreak-style": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "dot-notation": [0],
+    "node/no-missing-import": ["error", {
+      "tryExtensions": [".js", ".json", ".ts"]
+    }]
   }
 }

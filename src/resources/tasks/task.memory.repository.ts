@@ -1,7 +1,7 @@
 import { TTask } from '../../types';
 
 const { v4: uuidv4 } = require('uuid');
-const Task = require('./task.model');
+const Task = require('./task.model.ts');
 
 /**
  * @namespace TasksRepository

@@ -1,6 +1,6 @@
 import { TTask } from '../../types';
 
-const taskRepo = require('./task.memory.repository');
+const taskRepo = require('./task.memory.repository.ts');
 /**
  * @namespace TasksService
  */
