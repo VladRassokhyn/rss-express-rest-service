@@ -1,7 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
 import { TTask } from '../../types';
-
-const { v4: uuidv4 } = require('uuid');
-const Task = require('./task.model.ts');
+import { Task } from './task.model';
 
 /**
  * @namespace TasksRepository
@@ -108,7 +107,7 @@ const removeTasksFromUser = async (userId: string) => {
   tasks = tasks.map((t) => (t.userId === userId ? { ...t, userId: null } : t));
 };
 
-module.exports = {
+export const taskRepo = {
   getAll,
   postTask,
   getTaskById,

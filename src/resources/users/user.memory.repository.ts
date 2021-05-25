@@ -1,7 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
 import { TUser } from '../../types';
-
-const { v4: uuidv4 } = require('uuid');
-const User = require('./user.model.ts');
+import { User } from './user.model';
 
 /**
  * @namespace UsersRepository
@@ -83,4 +82,4 @@ const removeUser = async (id: string) => {
   return null;
 };
 
-module.exports = { getAll, postUser, getUserById, updateUser, removeUser };
+export const usersRepo = { getAll, postUser, getUserById, updateUser, removeUser };

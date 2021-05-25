@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
+import { User } from './user.model';
+import { usersService } from './user.service';
 
-const router = require('express').Router();
-const User = require('./user.model.ts');
-const usersService = require('./user.service.ts');
+export const router = express.Router();
 
 router.route('/').get(async (req: Request, res: Response) => {
   const users = await usersService.getAll();
@@ -22,18 +22,27 @@ router.route('/:userId').get(async (req: Request, res: Response) => {
     res.json(User.toResponse(user));
   } else {
     res.statusCode = 404;
-    res.json({ message: 'user not fount' });
+    res.json({ message: 'user not found' });
   }
 });
 
 router.route('/:userId').put(async (req: Request, res: Response) => {
   const user = await usersService.updateUser(req.params['userId'], req.body);
-  res.json(User.toResponse(user));
+  if (user) {
+    res.json(User.toResponse(user));
+  } else {
+    res.statusCode = 404
+    res.json({message: "user not found"})
+  }
 });
 
 router.route('/:userId')["delete"](async (req: Request, res: Response) => {
   const user = await usersService.removeUser(req.params['userId']);
-  res.json(User.toResponse(user));
+  if (user) {
+    res.json(User.toResponse(user));
+  } else {
+    res.statusCode = 404
+    res.json({message: "user not found"})
+  }
 });
 
-module.exports = router;

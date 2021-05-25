@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * @typedef {Object<{
@@ -12,7 +12,7 @@ const uuid = require('uuid');
  * }>} TTask
  */
 
-class Task {
+export class Task {
   id: string;
 
   title: string;
@@ -39,7 +39,7 @@ class Task {
    * @param columnId {string | null} - id of associated column
    */
   constructor({
-    id = uuid(),
+    id = uuidv4(),
     title = 'title',
     order = 0,
     description = 'description',
@@ -56,5 +56,3 @@ class Task {
     this.columnId = columnId;
   }
 }
-
-module.exports = Task;

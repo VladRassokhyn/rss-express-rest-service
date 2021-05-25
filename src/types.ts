@@ -10,7 +10,6 @@ export type TUser = {
   name: string;
   login: string;
   password: string;
-  toResponse: () => { id: string; name: string; login: string };
 };
 
 export type TTask = {

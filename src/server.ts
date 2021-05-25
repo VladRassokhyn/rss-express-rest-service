@@ -1,4 +1,4 @@
-const { PORT } = require('./common/config.ts');
-const app = require('./app.ts');
+import { config } from './common/config';
+import { app } from './app';
 
-app.listen(PORT);
+app.listen(config.PORT);

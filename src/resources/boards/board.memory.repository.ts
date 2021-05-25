@@ -1,7 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
 import { TBoard } from '../../types';
-
-const { v4: uuidv4 } = require('uuid');
-const Board = require('./board.model.ts');
+import { Board } from './board.model';
 
 /**
  * @namespace BoardsRepository
@@ -78,4 +77,4 @@ const removeBoard = async (id: string) => {
   return null;
 };
 
-module.exports = { getAll, postBoard, getBoardById, updateBoard, removeBoard };
+export const boardRepo = { getAll, postBoard, getBoardById, updateBoard, removeBoard };

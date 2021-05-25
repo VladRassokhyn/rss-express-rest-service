@@ -1,7 +1,6 @@
 import { TUser } from '../../types';
-
-const usersRepo = require('./user.memory.repository.ts');
-const taskService = require('../tasks/task.service.ts');
+import { usersRepo } from './user.memory.repository';
+import { taskService } from '../tasks/task.service';
 
 /**
  * @namespace UsersService
@@ -61,4 +60,4 @@ const removeUser = async (id: string) => {
   return usersRepo.removeUser(id);
 };
 
-module.exports = { getAll, postUser, getUserById, updateUser, removeUser };
+export const usersService = { getAll, postUser, getUserById, updateUser, removeUser };

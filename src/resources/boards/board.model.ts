@@ -1,6 +1,10 @@
-import { TColumn } from '../../types';
+import {v4 as uuidv4 } from 'uuid';
 
-const uuid = require('uuid');
+export type TColumn = {
+  id: string;
+  title: string;
+  order: number;
+};
 
 /**
  * @typedef {Object<{
@@ -10,7 +14,7 @@ const uuid = require('uuid');
  * }>} TBoard
  */
 
-class Board {
+export class Board {
   id: string;
 
   title: string;
@@ -22,11 +26,9 @@ class Board {
    * @param title {string}
    * @param columns {Array<{TColumn}> | null}
    */
-  constructor({ id = uuid(), title = 'title', columns = [null] } = {}) {
+  constructor({ id = uuidv4(), title = 'title', columns = [null] } = {}) {
     this.id = id;
     this.title = title;
     this.columns = columns;
   }
 }
-
-module.exports = Board;

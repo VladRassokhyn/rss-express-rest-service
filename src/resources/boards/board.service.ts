@@ -1,7 +1,6 @@
 import { TBoard } from '../../types';
-
-const boardRepo = require('./board.memory.repository.ts');
-const taskService = require('../tasks/task.service.ts');
+import { boardRepo } from './board.memory.repository';
+import { taskService } from '../tasks/task.service';
 
 /**
  * @namespace BoardsService
@@ -62,4 +61,4 @@ const removeBoard = async (id: string) => {
   return boardRepo.removeBoard(id);
 };
 
-module.exports = { getAll, postBoard, getBoardById, updateBoard, removeBoard };
+export const boardService = { getAll, postBoard, getBoardById, updateBoard, removeBoard };

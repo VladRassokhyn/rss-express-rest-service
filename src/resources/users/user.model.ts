@@ -1,6 +1,4 @@
-import { TUser } from '../../types';
-
-const uuid = require('uuid');
+import {v4 as uuidv4} from 'uuid';
 
 /**
  * @typedef {Object.<{
@@ -12,7 +10,7 @@ const uuid = require('uuid');
  * }>} TUser
  */
 
-class User {
+export class User {
   id: string;
 
   name: string;
@@ -28,7 +26,7 @@ class User {
    * @param password {string} - user password
    */
   constructor({
-    id = uuid(),
+    id = uuidv4(),
     name = 'USER',
     login = 'user',
     password = 'P@55w0rd',
@@ -39,10 +37,9 @@ class User {
     this.password = password;
   }
 
-  static toResponse(user: TUser) {
+  static toResponse(user: typeof User.prototype) {
     const { id, name, login } = user;
     return { id, name, login };
   }
 }
 
-module.exports = User;

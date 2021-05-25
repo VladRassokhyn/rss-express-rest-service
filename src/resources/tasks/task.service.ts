@@ -1,6 +1,6 @@
 import { TTask } from '../../types';
+import { taskRepo } from './task.memory.repository';
 
-const taskRepo = require('./task.memory.repository.ts');
 /**
  * @namespace TasksService
  */
@@ -81,7 +81,7 @@ const removeTasksFromBoard = (boardId: string) =>
 const removeTasksFromUser = (userId: string) =>
   taskRepo.removeTasksFromUser(userId);
 
-module.exports = {
+export const taskService = {
   getAll,
   postTask,
   getTaskById,

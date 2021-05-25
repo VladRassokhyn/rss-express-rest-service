@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
+import { boardService } from './board.service';
 
-const router = require('express').Router();
-const boardService = require('./board.service.ts');
+export const router = express.Router();
 
 router.route('/').get(async (req: Request, res: Response) => {
   const boards = await boardService.getAll();
@@ -41,5 +41,3 @@ router.route('/:boardId')["delete"](async (req: Request, res: Response) => {
   const board = await boardService.removeBoard(req.params['boardId']);
   res.json(board);
 });
-
-module.exports = router;
