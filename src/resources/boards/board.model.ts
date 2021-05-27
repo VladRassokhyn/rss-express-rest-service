@@ -1,4 +1,4 @@
-import {v4 as uuidv4 } from 'uuid';
+import { TBoard } from '../../types';
 
 export type TColumn = {
   id: string;
@@ -26,7 +26,7 @@ export class Board {
    * @param title {string}
    * @param columns {Array<{TColumn}> | null}
    */
-  constructor({ id = uuidv4(), title = 'title', columns = [null] } = {}) {
+  constructor({ id , title, columns }: TBoard) {
     this.id = id;
     this.title = title;
     this.columns = columns;

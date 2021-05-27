@@ -32,7 +32,7 @@ const getAll = async () => tasks;
  * @return {Promise<Object<TTask>>}
  */
 const postTask = async (taskData: TTask, boardId: string) => {
-  tasks.push(new Task({ ...taskData, id: uuidv4(), boardId }));
+  tasks.push(new Task({ ...taskData, id: uuidv4(), boardId}));
   return tasks[tasks.length - 1];
 };
 

@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { TTask } from '../../types';
 
 /**
  * @typedef {Object<{
@@ -39,14 +39,14 @@ export class Task {
    * @param columnId {string | null} - id of associated column
    */
   constructor({
-    id = uuidv4(),
-    title = 'title',
-    order = 0,
-    description = 'description',
-    userId = '1',
-    boardId = '1',
-    columnId = '1',
-  } = {}) {
+    id,
+    title,
+    order,
+    description,
+    userId,
+    boardId,
+    columnId,
+  }:TTask) {
     this.id = id;
     this.title = title;
     this.order = order;

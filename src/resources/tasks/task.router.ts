@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { taskService } from './task.service';
+import { TTask } from '../../types';
 
 export const router = express.Router();
 
@@ -13,7 +14,7 @@ router
 
 router
   .route('/:boardId/tasks/:taskId')
-  .get(async (req: Request, res: Response) => {
+  .get(async (req: Request<{taskId: string}>, res: Response) => {
     const task = await taskService.getTaskById(req.params['taskId']);
     if (task) {
       res.statusCode = 200;
@@ -26,7 +27,7 @@ router
 
 router
   .route('/:boardId/tasks/')
-  .post(async (req: Request, res: Response) => {
+  .post(async (req: Request<any, TTask>, res: Response) => {
     const task = await taskService.postTask(req.body, req.params['boardId']);
     if (task) {
       res.statusCode = 201;
@@ -39,7 +40,7 @@ router
 
 router
   .route('/:boardId/tasks/:taskId')
-  .put(async (req: Request, res: Response) => {
+  .put(async (req: Request<{taskId: string}>, res: Response) => {
     const task = await taskService.updateTask(req.body, req.params['taskId']);
     if (task) {
       res.statusCode = 200;
@@ -52,7 +53,7 @@ router
 
 router
   .route('/:boardId/tasks/:taskId')
-  ['delete'](async (req: Request, res: Response) => {
+  ['delete'](async (req: Request<{taskId: string}>, res: Response) => {
   const task = await taskService.removeTask(req.params['taskId']);
   if (task) {
     res.statusCode = 200;

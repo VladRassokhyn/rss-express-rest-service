@@ -15,7 +15,7 @@ router.route('/').post(async (req: Request, res: Response) => {
   res.json(board);
 });
 
-router.route('/:boardId').get(async (req: Request, res: Response) => {
+router.route('/:boardId').get(async (req: Request<{boardId: string}>, res: Response) => {
   const board = await boardService.getBoardById(req.params['boardId']);
   if (board) {
     res.statusCode = 200;
@@ -26,7 +26,7 @@ router.route('/:boardId').get(async (req: Request, res: Response) => {
   }
 });
 
-router.route('/:boardId').put(async (req: Request, res: Response) => {
+router.route('/:boardId').put(async (req: Request<{boardId: string}>, res: Response) => {
   const board = await boardService.updateBoard(req.params['boardId'], req.body);
   if (board) {
     res.statusCode = 200;
@@ -37,7 +37,7 @@ router.route('/:boardId').put(async (req: Request, res: Response) => {
   }
 });
 
-router.route('/:boardId')["delete"](async (req: Request, res: Response) => {
+router.route('/:boardId')["delete"](async (req: Request<{boardId: string}>, res: Response) => {
   const board = await boardService.removeBoard(req.params['boardId']);
   res.json(board);
 });
