@@ -235,7 +235,7 @@ paths:
                     - order
               required:
                 - title
-                - columns
+                - tasks
       responses:
         201:
           description: The board has been created.
@@ -305,7 +305,7 @@ paths:
                     - order
               required:
                 - title
-                - columns
+                - tasks
       responses:
         200:
           description: The board has been updated.
