@@ -27,7 +27,7 @@ router
 
 router
   .route('/:boardId/tasks/')
-  .post(async (req: Request<any, TTask>, res: Response) => {
+  .post(async (req: Request<TTask>, res: Response) => {
     const task = await taskService.postTask(req.body, req.params['boardId']);
     if (task) {
       res.statusCode = 201;
