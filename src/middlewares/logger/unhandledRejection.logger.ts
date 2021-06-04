@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const unhandledRejection = async (err: Error, origin: any) => {
+export const unhandledRejection = async (err: Error, origin: string) => {
   fs.appendFileSync(
     path.join(__dirname, '../../../logs/unhandledRejection.txt'),
     `\nCaught exception: ${err}\nException origin: ${JSON.stringify(origin)}`
