@@ -3,11 +3,11 @@ import { pipeline } from "stream";
 import fs from "fs";
 import path from "path";
 
-export const unhandledErrorHandler = async (err: Error, req: Request, res: Response, next: NextFunction) => {
+export const unhandledError = async (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err) {
     await pipeline(
       (`Req URL: ${req.url} \n Error: ${JSON.stringify(err)}  \n \n`),
-      fs.createWriteStream(path.join(__dirname, '../../logs/unhandledErrors.txt'), {flags: 'a'}),
+      fs.createWriteStream(path.join(__dirname, '../../../logs/unhandledErrors.txt'), {flags: 'a'}),
       (e) => {
         if (e) {
           process.stderr.write(e.message);
