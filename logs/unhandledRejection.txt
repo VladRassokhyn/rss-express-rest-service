@@ -1,0 +1,7 @@
+
+Caught exception: Error: Oops!
+Exception origin: [object Promise]
+Caught exception: Error: Oops!
+Exception origin: [object Promise]
+Caught exception: Error: Oops!
+Exception origin: {}

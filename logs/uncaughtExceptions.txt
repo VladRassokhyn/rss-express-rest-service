@@ -1,0 +1,7 @@
+Caught exception: Error: Oops!
+Exception origin: uncaughtExceptionCaught exception: Error: Oops!
+Exception origin: uncaughtException
+Caught exception: Error: Oops!
+Exception origin: uncaughtException
+Caught exception: Error: Oops!
+Exception origin: uncaughtException

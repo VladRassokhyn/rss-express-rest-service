@@ -3,7 +3,7 @@ import { pipeline } from 'stream';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const requestLogger = async (req: Request, res: Response, next: NextFunction) => {
+export const requestsLogger = async (req: Request, res: Response, next: NextFunction) => {
   await pipeline(
     (`Req URL: ${req.url} \n 
     Req body: ${JSON.stringify(req.body) || 'no body'} \n 
